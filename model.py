@@ -16,7 +16,7 @@ def load_model():
 
     qa_chain = RetrievalQA.from_chain_type(
         llm=HuggingFaceHub(
-            repo_id="tiiuae/falcon-7b-instruct",
+            repo_id="tiiuae/falcon-rw-1b",
             huggingfacehub_api_token=huggingfacehub_api_token,
             model_kwargs={"temperature": 0.3, "max_new_tokens": 512}
         ),
