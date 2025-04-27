@@ -151,20 +151,20 @@ if st.session_state["question_submitted"]:
             st.markdown(f"<div class='user-bubble'><b>You (Clarification):</b> {clarification}</div>", unsafe_allow_html=True)
             full_query = query + " " + clarification
             with st.spinner('VisaCoach is thinking...'):
-                result = qa_chain.invoke(full_query)
+                st.session_state["result"] = qa_chain.invoke(full_query)
     else:
         with st.spinner('VisaCoach is thinking...'):
-            result = qa_chain.invoke(query)
+            st.session_state["result"] = qa_chain.invoke(query)
 
-    # Bot's Answer
-    st.markdown(f"<div class='bot-bubble'><b>VisaCoach:</b><br>{result['result']}</div>", unsafe_allow_html=True)
+    # Only render bot response if result exists
+    if "result" in st.session_state:
+        st.markdown(f"<div class='bot-bubble'><b>VisaCoach:</b><br>{st.session_state['result']['result']}</div>", unsafe_allow_html=True)
 
-    st.caption("⚠️ Disclaimer: Always verify with your ISSS Advisor for final approval.")
+        st.caption("⚠️ Disclaimer: Always verify with your ISSS Advisor for final approval.")
 
-    # Sources
-    st.markdown("### 🔗 Sources")
-    for doc in result['source_documents']:
-        st.markdown(f"- [{doc.metadata['source']}]({doc.metadata['source']})")
+        st.markdown("### 🔗 Sources")
+        for doc in st.session_state['result']['source_documents']:
+            st.markdown(f"- [{doc.metadata['source']}]({doc.metadata['source']})")
 
     # Ask Another Question
     if st.button("💬 Ask another question"):
