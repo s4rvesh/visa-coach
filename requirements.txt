@@ -2,10 +2,8 @@ streamlit
 langchain
 langchain-community
 langchain-huggingface
-langchain-together
 huggingface_hub
 sentence-transformers
 faiss-cpu
 python-dotenv
 pandas
-
