@@ -7,7 +7,7 @@ from langchain.chains import RetrievalQA
 
 load_dotenv()
 
-def load_model():
+def load_model(model_name="google/flan-t5-base", temperature=0.3, max_new_tokens=512):
     huggingfacehub_api_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
@@ -16,9 +16,9 @@ def load_model():
 
     qa_chain = RetrievalQA.from_chain_type(
         llm=HuggingFaceHub(
-            repo_id="tiiuae/falcon-rw-1b",
+            repo_id=model_name,
             huggingfacehub_api_token=huggingfacehub_api_token,
-            model_kwargs={"temperature": 0.3, "max_new_tokens": 512}
+            model_kwargs={"temperature": temperature, "max_new_tokens": max_new_tokens}
         ),
         chain_type="stuff",
         retriever=retriever,

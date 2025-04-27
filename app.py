@@ -2,9 +2,6 @@ import os
 import time
 import streamlit as st
 from dotenv import load_dotenv
-import pandas as pd
-from datetime import datetime
-
 from model import load_model
 from utils import reset_session, is_query_vague
 from style import apply_custom_styles
@@ -22,7 +19,12 @@ with st.spinner('Loading VisaCoach...'):
 # Title
 st.markdown("<h1>🎓 VisaCoach for SJSU Students</h1>", unsafe_allow_html=True)
 
-qa_chain = load_model()
+# Load the model
+qa_chain = load_model(
+    model_name="google/flan-t5-base", 
+    temperature=0.3, 
+    max_new_tokens=512
+)
 
 # Chat logic
 if "question_submitted" not in st.session_state:
