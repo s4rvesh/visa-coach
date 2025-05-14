@@ -1,9 +1,10 @@
 streamlit
 langchain
 langchain-community
+langchain-openai
 langchain-huggingface
+openai
 huggingface_hub
 sentence-transformers
 faiss-cpu
 python-dotenv
-pandas
